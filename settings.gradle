@@ -1,0 +1,2 @@
+include ':app', ':richtextor'
+rootProject.name='XinLanRichtextor'
