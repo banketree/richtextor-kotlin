@@ -9,16 +9,23 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.banketree.xinlanrichtextor.core.EmojiLayout;
+import com.ttm.richtextor.RichEditText;
 import com.ttm.richtextor.RichEditor;
-import com.ttm.richtextor.model.RichInsertModel;
+import com.ttm.richtextor.model.RichModel;
+
+import java.util.Random;
 
 
 public class MainActivity extends AppCompatActivity {
 
     public final static int REQUEST_USER_CODE_CLICK = 2222;
     public final static int REQUEST_STOCK_CODE_CLICK = 3333;
+
+    String[] str = new String[]{"dsdsd", "fdfdfd", "hghghgh", "gtrtrt", "rtrtrt", "sdsdsd"};
+    private final static String MASK_STR = "@";
+
     RichEditor richEditor;
+    RichEditText richEditor2;
     RelativeLayout activityMain;
     Button btnAt;
     Button btnTopic;
@@ -33,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         richEditor = findViewById(R.id.richEditor);
+        richEditor2 = findViewById(R.id.richEditor2);
         activityMain = findViewById(R.id.activity_main);
         btnAt = findViewById(R.id.btn_at);
         btnTopic = findViewById(R.id.btn_topic);
@@ -55,6 +63,12 @@ public class MainActivity extends AppCompatActivity {
                 tvContent.setText(richEditor.getRichContent());
                 break;
             case R.id.btn_emoji:
+                addSpan();
+                addSpan();
+                addSpan();
+                addSpan();
+                addSpan();
+                addSpan();
 //                emojiLayout.hideKeyboard();
 //                if (emojiLayout.getVisibility() == View.VISIBLE) {
 //                    emojiLayout.setVisibility(View.GONE);
@@ -75,13 +89,20 @@ public class MainActivity extends AppCompatActivity {
             switch (requestCode) {
                 case REQUEST_USER_CODE_CLICK:
                     UserModel userModel = (UserModel) data.getSerializableExtra(UserListActivity.DATA);
-                    richEditor.insertSpecialStr(new RichInsertModel("@", userModel.getName(), "#f77500"));
+                    richEditor.insertSpecialStr(new RichModel("@", userModel.getName(), "#f77500"));
                     break;
                 case REQUEST_STOCK_CODE_CLICK:
                     UserModel stockModel = (UserModel) data.getSerializableExtra(StockListActivity.DATA);
-                    richEditor.insertSpecialStr(new RichInsertModel("#", stockModel.getName(), "#f77500"));
+                    richEditor.insertSpecialStr(new RichModel("#", stockModel.getName(), "#f77500"));
                     break;
             }
         }
+    }
+
+    Random random = new Random();
+
+    public void addSpan() {
+        int aaa = random.nextInt(5);
+        richEditor2.addSpan(new RichModel("@", str[aaa], "#f77500"));
     }
 }

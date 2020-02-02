@@ -17,6 +17,8 @@
         android:padding="5dp"
         android:textColor="@android:color/white" />
 
+
+
     <Button
         android:id="@+id/btn_at"
         android:layout_width="80dp"
@@ -73,6 +75,19 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/btn_get1"
         android:textColor="@android:color/white" />
+
+    <com.ttm.richtextor.RichEditText
+        android:id="@+id/richEditor2"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@null"
+        android:gravity="left"
+        android:layout_alignParentBottom="true"
+        android:hint="请输入贴子内容"
+        android:maxLength="2000"
+        android:onClick="onClick"
+        android:padding="5dp"
+        android:textColor="@android:color/black" />
 
 <!--    <com.banketree.xinlanrichtextor.core.EmojiLayout
         android:id="@+id/emojiLayout"
