@@ -13,6 +13,8 @@ import com.ttm.richtextor.RichEditText;
 import com.ttm.richtextor.RichEditor;
 import com.ttm.richtextor.model.RichModel;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 
@@ -103,6 +105,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void addSpan() {
         int aaa = random.nextInt(5);
-        richEditor2.addSpan(new RichModel("@", str[aaa], "#f77500"));
+//        richEditor2.addSpan(new RichModel("@", str[aaa], "#f77500"));
+
+        List<RichModel> richModelList = new ArrayList<>();
+        richModelList.add(new RichModel("@dflgjd@", "#f77500"));
+        richModelList.add(new RichModel("@fklgj@", "#f77500"));
+        richModelList.add(new RichModel("@lgjf@", "#f77500"));
+        richEditor2.setTextToSpan("sdlkj@dflgjd@ @fklgj@ kdf@lgjf@ ldkgjkflghjflgkhjlkgfhjlkfg", richModelList);
     }
 }

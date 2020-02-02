@@ -90,6 +90,29 @@ class RichEditText : AppCompatEditText {
         super.onSelectionChanged(selStart2, selEnd2)
     }
 
+    fun setTextToSpan(content: String, richModels: List<RichModel>) {
+        setText(content)
+        if (TextUtils.isEmpty(content) || richModels.isEmpty() || text == null) return
+        for (richModel in richModels) {
+            if (!richModel.isValid()) continue
+            val startSelection = content.indexOf(richModel.getContentRule())
+            val endSelection = startSelection + richModel.getContentRule().length
+            if (startSelection == -1) continue
+
+            text!!.delete(startSelection, endSelection)
+            val htmlText = richModel.getContentHtml()
+
+            text!!.insert(startSelection, htmlText)
+            val sps = SpannableString(text)
+
+            val start =
+                endSelection - htmlText.toString().length - if (TextUtils.isEmpty(richModel.getContent())) 1 else 0
+            val end = endSelection
+            makeSpan(sps, start, end, richModel)
+            setText(sps)
+        }
+    }
+
     /**
      * 添加一个块,在文字的后面添加
      *

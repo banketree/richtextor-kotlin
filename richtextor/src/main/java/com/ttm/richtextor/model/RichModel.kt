@@ -16,6 +16,13 @@ class RichModel {
         this.textColor = textColor
     }
 
+    constructor(contentRule: String,textColor: String) {
+        var contentRuleTemp = contentRule.trim()
+        this.rule = contentRuleTemp.substring(0, 1)
+        this.content = contentRuleTemp.substring(1, contentRuleTemp.length - 1)
+        this.textColor = textColor
+    }
+
     fun isValid(): Boolean {
         return !TextUtils.isEmpty(rule) && !TextUtils.isEmpty(content)
     }
@@ -27,6 +34,7 @@ class RichModel {
     fun getContentRule(): String {
         return "$rule$content$rule "
     }
+
 
     fun getContentHtml(): Spanned {
         return Html.fromHtml(
