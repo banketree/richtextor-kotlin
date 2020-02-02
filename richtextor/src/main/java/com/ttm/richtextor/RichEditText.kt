@@ -52,6 +52,43 @@ class RichEditText : AppCompatEditText {
     fun initView() {
     }
 
+    /**
+     * 监听光标的位置,若光标处于话题内容中间则移动光标到话题结束位置
+     */
+    override fun onSelectionChanged(selStart: Int, selEnd: Int) {
+        var selStart2 = selStart
+        var selEnd2 = selEnd
+
+        getSpaned()?.let {
+            for (itemSpan in it) {
+                val spanStart = text!!.getSpanStart(itemSpan)
+                val spanEnd = text!!.getSpanEnd(itemSpan)
+
+                if (selStart == selEnd) { //同一光标
+                    if (selStart in (spanStart + 1) until spanEnd) {// 若光标处于话题内容中间则移动光标到话题结束位置
+                        setSelection(spanEnd)
+                        return
+                    }
+                    continue
+                }
+
+                if (selStart in (spanStart + 1) until spanEnd) {
+                    selStart2 = spanStart
+                }
+
+                if (selEnd in (spanStart + 1) until spanEnd) {
+                    selEnd2 = spanEnd
+                }
+            }
+        }
+
+        if (selStart != selStart2 || selEnd != selEnd2) {
+            setSelection(selStart2, selEnd2)
+            return
+        }
+
+        super.onSelectionChanged(selStart2, selEnd2)
+    }
 
     /**
      * 添加一个块,在文字的后面添加
@@ -74,16 +111,14 @@ class RichEditText : AppCompatEditText {
         val start =
             selectionEnd - htmlText.toString().length - if (TextUtils.isEmpty(model.getContent())) 1 else 0
         val end = selectionEnd
-        makeSpan(sps, UnSpanText(start, end, htmlText.toString()), model)
+        makeSpan(sps, start, end, model)
         setText(sps)
         setSelection(end)
     }
 
     //生成一个需要整体删除的Span
-    private fun makeSpan(sps: Spannable, unSpanText: UnSpanText, richModel: RichModel) {
+    private fun makeSpan(sps: Spannable, start: Int, end: Int, richModel: RichModel) {
         val what = AtTextSpan(richModel)
-        val start = unSpanText.start
-        val end = unSpanText.end
         sps.setSpan(what, start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
     }
 
@@ -98,16 +133,21 @@ class RichEditText : AppCompatEditText {
         //向前删除一个字符，@后的内容必须大于一个字符，可以在后面加一个空格
         getText()?.let {
             if (lengthBefore == 1 && lengthAfter == 0) {
-                val spans = it.getSpans(0, getText()!!.length, AtTextSpan::class.java)
+                val spans = it.getSpans(0, it.length, AtTextSpan::class.java)
                 for (itemSpan in spans) {
                     if (it.getSpanEnd(itemSpan) == start && !text.toString().endsWith(
                             itemSpan.model.getContentRule()
                         )
                     ) {
+                        val spanStart = it.getSpanStart(itemSpan)
                         it.delete(
                             it.getSpanStart(itemSpan),
                             it.getSpanEnd(itemSpan)
                         )
+                        post {
+                            setSelection(spanStart)
+                        }
+
                         break
                     }
                 }
@@ -138,10 +178,4 @@ class RichEditText : AppCompatEditText {
         override fun updateDrawState(tp: TextPaint) {
         }
     }
-
-    private inner class UnSpanText internal constructor(
-        internal var start: Int,
-        internal var end: Int,
-        internal var returnText: String
-    )
 }
