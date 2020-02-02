@@ -11,8 +11,6 @@ import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.ttm.richtextor.model.UserModel;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,8 +36,8 @@ public class StockListActivity extends AppCompatActivity {
 
         for (int i = 0; i < 50; i++) {
             UserModel userModel = new UserModel();
-            userModel.setUser_name("股票代码" + i);
-            userModel.setUser_id(i * 30 + "");
+            userModel.setName("股票代码" + i);
+            userModel.setId(i * 30 + "");
             data.add(userModel);
         }
 
@@ -54,8 +52,5 @@ public class StockListActivity extends AppCompatActivity {
                 finish();
             }
         });
-
     }
-
-
 }

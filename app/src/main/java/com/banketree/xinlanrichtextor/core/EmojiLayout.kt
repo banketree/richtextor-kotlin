@@ -1,4 +1,4 @@
-package com.ttm.richtextor.core
+package com.banketree.xinlanrichtextor.core
 
 
 import android.app.Activity
@@ -14,11 +14,11 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 
 import androidx.viewpager.widget.ViewPager
+import com.banketree.xinlanrichtextor.R
 
-import com.ttm.richtextor.R
 import com.ttm.richtextor.RichEditor
-import com.ttm.richtextor.adapter.ExpressionPagerAdapter
-import com.ttm.richtextor.adapter.SmileImageExpressionAdapter
+import com.banketree.xinlanrichtextor.adapter.ExpressionPagerAdapter
+import com.banketree.xinlanrichtextor.adapter.SmileImageExpressionAdapter
 import com.ttm.richtextor.util.ScreenUtils
 
 import java.util.ArrayList
@@ -130,7 +130,12 @@ class EmojiLayout : LinearLayout {
             AdapterView.OnItemClickListener { parent, view, position, id ->
                 val filename = smileImageExpressionAdapter.getItem(position)
                 filename?.let {
-                    editTextEmoji!!.insertIcon(it)
+                    SmileImageExpressionAdapter.ParseIconResId2(it, context)?.let { drawable ->
+                        editTextEmoji!!.insertIcon(
+                            it,
+                            drawable
+                        )
+                    }
                 }
             }
         return view

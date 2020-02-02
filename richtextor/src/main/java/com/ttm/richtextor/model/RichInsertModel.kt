@@ -1,10 +1,10 @@
 package com.ttm.richtextor.model
 
 
-class InsertModel(var insertRule: String?, var insertContent: String?, var insertColor: String?) {
+class RichInsertModel(var insertRule: String, var insertContent: String, var insertColor: String) {
 
     override fun toString(): String {
-        return "InsertModel{" +
+        return "RichInsertModel{" +
                 "insertRule='" + insertRule + '\''.toString() +
                 ", insertContent='" + insertContent + '\''.toString() +
                 ", insertColor='" + insertColor + '\''.toString() +

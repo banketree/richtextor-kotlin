@@ -1,4 +1,4 @@
-package com.ttm.richtextor.adapter
+package com.banketree.xinlanrichtextor.adapter
 
 import android.view.View
 

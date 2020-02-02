@@ -9,10 +9,9 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.banketree.xinlanrichtextor.core.EmojiLayout;
 import com.ttm.richtextor.RichEditor;
-import com.ttm.richtextor.core.EmojiLayout;
-import com.ttm.richtextor.model.InsertModel;
-import com.ttm.richtextor.model.UserModel;
+import com.ttm.richtextor.model.RichInsertModel;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -26,13 +25,12 @@ public class MainActivity extends AppCompatActivity {
     Button btnGet1;
     TextView tvContent;
     Button btnEmoji;
-    EmojiLayout emojiLayout;
+//    EmojiLayout emojiLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         richEditor = findViewById(R.id.richEditor);
         activityMain = findViewById(R.id.activity_main);
@@ -41,9 +39,8 @@ public class MainActivity extends AppCompatActivity {
         btnGet1 = findViewById(R.id.btn_get1);
         tvContent = findViewById(R.id.tv_content);
         btnEmoji = findViewById(R.id.btn_emoji);
-        emojiLayout = findViewById(R.id.emojiLayout);
-
-        emojiLayout.setEditTextSmile(richEditor);
+//        emojiLayout = findViewById(R.id.emojiLayout);
+//        emojiLayout.setEditTextSmile(richEditor);
     }
 
     public void onClick(View view) {
@@ -58,15 +55,15 @@ public class MainActivity extends AppCompatActivity {
                 tvContent.setText(richEditor.getRichContent());
                 break;
             case R.id.btn_emoji:
-                emojiLayout.hideKeyboard();
-                if (emojiLayout.getVisibility() == View.VISIBLE) {
-                    emojiLayout.setVisibility(View.GONE);
-                } else {
-                    emojiLayout.setVisibility(View.VISIBLE);
-                }
+//                emojiLayout.hideKeyboard();
+//                if (emojiLayout.getVisibility() == View.VISIBLE) {
+//                    emojiLayout.setVisibility(View.GONE);
+//                } else {
+//                    emojiLayout.setVisibility(View.VISIBLE);
+//                }
                 break;
             case R.id.activity_main:
-                emojiLayout.setVisibility(View.GONE);
+//                emojiLayout.setVisibility(View.GONE);
                 break;
         }
     }
@@ -78,15 +75,13 @@ public class MainActivity extends AppCompatActivity {
             switch (requestCode) {
                 case REQUEST_USER_CODE_CLICK:
                     UserModel userModel = (UserModel) data.getSerializableExtra(UserListActivity.DATA);
-                    richEditor.insertSpecialStr(new InsertModel("@", userModel.getUser_name(), "#f77500"));
+                    richEditor.insertSpecialStr(new RichInsertModel("@", userModel.getName(), "#f77500"));
                     break;
                 case REQUEST_STOCK_CODE_CLICK:
                     UserModel stockModel = (UserModel) data.getSerializableExtra(StockListActivity.DATA);
-                    richEditor.insertSpecialStr(new InsertModel("#", stockModel.getUser_name(), "#f77500"));
+                    richEditor.insertSpecialStr(new RichInsertModel("#", stockModel.getName(), "#f77500"));
                     break;
             }
         }
-
     }
-
 }

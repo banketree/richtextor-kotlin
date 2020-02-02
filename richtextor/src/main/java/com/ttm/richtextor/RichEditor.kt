@@ -2,6 +2,7 @@ package com.ttm.richtextor
 
 import android.content.Context
 import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.text.Editable
 import android.text.Html
 import android.text.InputFilter
@@ -15,12 +16,10 @@ import android.text.style.ImageSpan
 import android.util.AttributeSet
 import android.view.KeyEvent
 import android.view.MotionEvent
-import android.widget.Toast
 
 import androidx.appcompat.widget.AppCompatEditText
-import androidx.core.content.ContextCompat
 
-import com.ttm.richtextor.model.InsertModel
+import com.ttm.richtextor.model.RichInsertModel
 import com.ttm.richtextor.util.ScreenUtils
 
 import java.util.ArrayList
@@ -32,11 +31,12 @@ import java.util.ArrayList
  * 仿新浪编辑框
  * https://github.com/change9326/RichEditor
  */
+@Suppress("DEPRECATION")
 class RichEditor : AppCompatEditText {
     private var size: Int = ScreenUtils.dip2px(context, 20f)
     //最大可输入长度
     var editTextMaxLength = 2000
-    private val insertModelList = ArrayList<InsertModel>()
+    private val insertModelList = ArrayList<RichInsertModel>()
 
     /**
      * 获取普通文本内容
@@ -56,14 +56,14 @@ class RichEditor : AppCompatEditText {
     /**
      * 获取特殊字符列表
      */
-    val richInsertList: List<InsertModel>
+    val richInsertList: List<RichInsertModel>
         get() {
-            val objectsList = ArrayList<InsertModel>()
+            val objectsList = ArrayList<RichInsertModel>()
             if (insertModelList != null && insertModelList.size > 0) {
                 for (i in insertModelList.indices) {
                     val inertModel = insertModelList[i]
                     objectsList.add(
-                        InsertModel(
+                        RichInsertModel(
                             inertModel.insertRule,
                             inertModel.insertContent!!.replace(inertModel.insertRule!!, ""),
                             inertModel.insertColor
@@ -81,44 +81,17 @@ class RichEditor : AppCompatEditText {
     var isRequest = false
 
     constructor(context: Context, size: Int) : super(context) {
-        mContext = context
         initView()
         this.size = size
     }
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
-        mContext = context
         if (isInEditMode) {
             return
         }
         val filters = arrayOf<InputFilter>(InputFilter.LengthFilter(editTextMaxLength))
         setFilters(filters)
         initView()
-    }
-
-    fun insertIcon(name: String) {
-        val curString = text!!.toString()
-        if (curString.length + name.length > editTextMaxLength) {
-            return
-        }
-        val drawable = ContextCompat.getDrawable(mContext!!, ParseIconResId(name)) ?: return
-
-        //这里设置图片的大小
-        drawable.setBounds(0, 0, size, size)
-        val imageSpan = ImageSpan(drawable)
-        val spannableString = SpannableString(name)
-        spannableString.setSpan(
-            imageSpan,
-            0,
-            spannableString.length,
-            SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE
-        )
-        val index = Math.max(selectionStart, 0)
-        val spannableStringBuilder = SpannableStringBuilder(text)
-        spannableStringBuilder.insert(index, spannableString)
-
-        text = spannableStringBuilder
-        setSelection(index + spannableString.length)
     }
 
 
@@ -238,21 +211,30 @@ class RichEditor : AppCompatEditText {
         }
     }
 
+
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+        parent.requestDisallowInterceptTouchEvent(isRequest)
+        when (event.action and MotionEvent.ACTION_MASK) {
+            MotionEvent.ACTION_UP -> parent.requestDisallowInterceptTouchEvent(false)
+        }
+        return super.onTouchEvent(event)
+    }
+
     /**
      * @param insertModel 插入对象
      */
-    fun insertSpecialStr(insertModel: InsertModel?) {
+    fun insertSpecialStr(insertModel: RichInsertModel?) {
         if (insertModel == null) {
             return
         }
         //避免插入相同的数据
         for (model in insertModelList) {
-            if (model.insertContent!!.replace(
-                    model.insertRule!!,
+            if (model.insertContent.replace(
+                    model.insertRule,
                     ""
                 ) == insertModel.insertContent && model.insertRule == insertModel.insertRule
             ) {
-                Toast.makeText(mContext, "不可重复插入", Toast.LENGTH_LONG).show()
+//                Toast.makeText(mContext, "不可重复插入", Toast.LENGTH_LONG).show()
                 return
             }
         }
@@ -262,11 +244,11 @@ class RichEditor : AppCompatEditText {
         if (TextUtils.isEmpty(insertRule) || TextUtils.isEmpty(insertContent)) {
             return
         }
-        if (insertRule == "@") {
-            insertContent = insertRule + insertContent!!
-        } else {
-            insertContent = insertRule + insertContent + insertRule
-        }
+//        if (insertRule == "@") {
+//            insertContent = insertRule + insertContent!!
+//        } else {
+        insertContent = insertRule + insertContent + insertRule
+//        }
         insertModel.insertContent = insertContent
 
         insertModelList.add(insertModel)
@@ -289,6 +271,29 @@ class RichEditor : AppCompatEditText {
         setSelection(index + htmlText.length + 1)
     }
 
+    fun insertIcon(name: String, drawable: Drawable) {
+        val curString = text!!.toString()
+        if (curString.length + name.length > editTextMaxLength) {
+            return
+        }
+
+        //这里设置图片的大小
+        drawable.setBounds(0, 0, size, size)
+        val imageSpan = ImageSpan(drawable)
+        val spannableString = SpannableString(name)
+        spannableString.setSpan(
+            imageSpan,
+            0,
+            spannableString.length,
+            SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        val index = Math.max(selectionStart, 0)
+        val spannableStringBuilder = SpannableStringBuilder(text)
+        spannableStringBuilder.insert(index, spannableString)
+
+        text = spannableStringBuilder
+        setSelection(index + spannableString.length)
+    }
 
     /**
      * 删除缓存列表
@@ -307,28 +312,11 @@ class RichEditor : AppCompatEditText {
         }
     }
 
-
-    override fun onTouchEvent(event: MotionEvent): Boolean {
-        parent.requestDisallowInterceptTouchEvent(isRequest)
-        when (event.action and MotionEvent.ACTION_MASK) {
-            MotionEvent.ACTION_UP -> parent.requestDisallowInterceptTouchEvent(false)
-        }
-        return super.onTouchEvent(event)
-    }
-
     companion object {
-
         private val TAG = "RichEditor"
         /**
          * 默认,话题背景高亮颜色
          */
         private val BACKGROUND_COLOR = Color.parseColor("#FFDEAD")
-        private var mContext: Context? = null
-
-        fun ParseIconResId(name: String): Int {
-            var name = name
-            name = name.substring(1, name.length - 1)
-            return mContext!!.resources.getIdentifier(name, "drawable", mContext!!.packageName)
-        }
     }
 }
