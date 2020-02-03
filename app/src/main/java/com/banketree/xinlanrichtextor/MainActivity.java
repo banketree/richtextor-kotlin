@@ -3,6 +3,7 @@ package com.banketree.xinlanrichtextor;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputFilter;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
@@ -66,6 +67,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.btn_get1:
                 tvContent.setText(richEditor.getRichContent());
+
+                List<RichModel> list = richEditor2.getRichModelList();
+                Log.i("", "" + list.size());
                 break;
             case R.id.btn_emoji:
                 addSpan();
@@ -83,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.activity_main:
 //                emojiLayout.setVisibility(View.GONE);
+
                 break;
         }
     }

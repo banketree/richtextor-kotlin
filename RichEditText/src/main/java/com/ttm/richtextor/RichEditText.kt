@@ -13,26 +13,6 @@ import java.util.ArrayList
 
 class RichEditText : AppCompatEditText {
 
-    //获取用户Id列表
-    val userIdString: String
-        get() {
-            val spans = text!!.getSpans(0, text!!.length, AtTextSpan::class.java)
-            val builder = StringBuilder()
-            for (myTextSpan in spans) {
-                val realText = text!!.toString()
-                    .substring(text!!.getSpanStart(myTextSpan), text!!.getSpanEnd(myTextSpan))
-                val showText = myTextSpan.model.getContent()
-                if (realText == showText) {
-                    builder.append(myTextSpan.model.rule).append(",")
-                }
-            }
-            if (!TextUtils.isEmpty(builder.toString())) {
-                builder.deleteCharAt(builder.length - 1)
-            }
-            return builder.toString()
-        }
-
-
     constructor(context: Context) : super(context) {
         initView()
     }
@@ -59,7 +39,7 @@ class RichEditText : AppCompatEditText {
         var selStart2 = selStart
         var selEnd2 = selEnd
 
-        getSpaned()?.let {
+        getSpanedList()?.let {
             for (itemSpan in it) {
                 val spanStart = text!!.getSpanStart(itemSpan)
                 val spanEnd = text!!.getSpanEnd(itemSpan)
@@ -178,20 +158,51 @@ class RichEditText : AppCompatEditText {
         }
     }
 
-    private fun getSpaned(): Array<out AtTextSpan>? {
+    private fun getSpanedList(): Array<out AtTextSpan>? {
         return text?.getSpans(0, text!!.length, AtTextSpan::class.java)
     }
 
     private fun hasSpaned(model: RichModel): Boolean {
-        getSpaned()?.let {
+        getSpanedList()?.let {
             for (itemSpan in it) {
                 if (TextUtils.equals(model.getContentRule(), itemSpan.model.getContentRule())) {
-                    Log.i("", "")
                     return true
                 }
             }
         }
         return false
+    }
+
+    fun getRichModelList(): List<RichModel> {
+        val richModels = ArrayList<RichModel>()
+        getSpanedList()?.let {
+            for (itemSpan in it) {
+                richModels.add(itemSpan.model)
+            }
+        }
+
+        return richModels
+    }
+
+    fun removeRichModel(richModel: RichModel) {
+        getSpanedList()?.let {
+            for (itemSpan in it) {
+                if (TextUtils.equals(richModel.getContentRule(), itemSpan.model.getContentRule())) {
+                    //向前删除一个字符，@后的内容必须大于一个字符，可以在后面加一个空格
+                    text?.let { editable ->
+                        val spanStart = editable.getSpanStart(itemSpan)
+                        editable.delete(
+                            spanStart,
+                            editable.getSpanEnd(itemSpan)
+                        )
+                        post {
+                            setSelection(spanStart)
+                        }
+                    }
+                    break
+                }
+            }
+        }
     }
 
     private inner class AtTextSpan(val model: RichModel) : MetricAffectingSpan() {
