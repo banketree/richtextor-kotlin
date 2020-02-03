@@ -2,13 +2,16 @@ package com.banketree.xinlanrichtextor;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Filter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.ttm.richtextor.CharFilter;
 import com.ttm.richtextor.RichEditText;
 import com.ttm.richtextor.RichEditor;
 import com.ttm.richtextor.model.RichModel;
@@ -51,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
         btnEmoji = findViewById(R.id.btn_emoji);
 //        emojiLayout = findViewById(R.id.emojiLayout);
 //        emojiLayout.setEditTextSmile(richEditor);
+
+        richEditor2.setFilters(new InputFilter[]{CharFilter.Companion.newlineCharFilter()});
     }
 
     public void onClick(View view) {
