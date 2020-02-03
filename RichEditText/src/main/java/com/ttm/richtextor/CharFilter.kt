@@ -3,7 +3,6 @@ package com.ttm.richtextor
 import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.InputFilter
-import android.util.Log
 
 /**
  * 过滤或替换

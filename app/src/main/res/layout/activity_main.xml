@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/white">
 
-    <com.ttm.richtextor.RichEditor
+    <com.banketree.xinlanrichtextor.RichEditor
         android:id="@+id/richEditor"
         android:layout_width="match_parent"
         android:layout_height="200dp"

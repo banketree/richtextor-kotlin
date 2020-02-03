@@ -1,4 +1,4 @@
-package com.ttm.richtextor.util
+package com.banketree.xinlanrichtextor.util
 
 
 import android.content.Context

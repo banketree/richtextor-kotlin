@@ -15,11 +15,11 @@ import android.widget.LinearLayout
 
 import androidx.viewpager.widget.ViewPager
 import com.banketree.xinlanrichtextor.R
+import com.banketree.xinlanrichtextor.RichEditor
 
-import com.ttm.richtextor.RichEditor
 import com.banketree.xinlanrichtextor.adapter.ExpressionPagerAdapter
 import com.banketree.xinlanrichtextor.adapter.SmileImageExpressionAdapter
-import com.ttm.richtextor.util.ScreenUtils
+import com.banketree.xinlanrichtextor.util.ScreenUtils
 
 import java.util.ArrayList
 

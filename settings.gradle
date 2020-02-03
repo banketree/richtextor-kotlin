@@ -1,2 +1,2 @@
-include ':app', ':richtextor'
+include ':app', ':RichEditText'
 rootProject.name='XinLanRichtextor'

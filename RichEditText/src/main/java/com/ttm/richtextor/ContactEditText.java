@@ -27,9 +27,6 @@ import java.util.List;
 
 /**
  * 模仿@联系人 整块删除 不可编辑
- * Created by dds on 2017/11/1.
- * <p>
- * QQ: 710715508
  */
 
 public class ContactEditText extends AppCompatAutoCompleteTextView {

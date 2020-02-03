@@ -1,4 +1,4 @@
-package com.ttm.richtextor
+package com.banketree.xinlanrichtextor
 
 import android.content.Context
 import android.graphics.Color
@@ -11,7 +11,6 @@ import android.view.MotionEvent
 import androidx.appcompat.widget.AppCompatEditText
 
 import com.ttm.richtextor.model.RichModel
-import com.ttm.richtextor.util.ScreenUtils
 
 import java.util.ArrayList
 import android.view.inputmethod.InputConnection
@@ -19,6 +18,7 @@ import android.view.inputmethod.InputConnectionWrapper
 import android.view.inputmethod.EditorInfo
 import android.text.*
 import android.util.Log
+import com.banketree.xinlanrichtextor.util.ScreenUtils
 
 
 /**

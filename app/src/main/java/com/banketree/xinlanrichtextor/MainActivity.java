@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.text.InputFilter;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Filter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -13,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.ttm.richtextor.CharFilter;
 import com.ttm.richtextor.RichEditText;
-import com.ttm.richtextor.RichEditor;
 import com.ttm.richtextor.model.RichModel;
 
 import java.util.ArrayList;

@@ -9,7 +9,6 @@ import android.widget.ImageView
 import androidx.core.content.ContextCompat
 
 import com.ttm.richtextor.R
-import com.ttm.richtextor.RichEditor
 
 
 class SmileImageExpressionAdapter(
