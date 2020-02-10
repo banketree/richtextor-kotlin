@@ -86,8 +86,8 @@ class RichEditText : AppCompatEditText {
             val sps = SpannableString(text)
 
             val start =
-                endSelection - htmlText.toString().length - if (TextUtils.isEmpty(richModel.getContent())) 1 else 0
-            val end = endSelection
+                endSelection - htmlText.toString().length
+            val end = endSelection - 1
             makeSpan(sps, start, end, richModel)
             setText(sps)
         }
@@ -112,8 +112,8 @@ class RichEditText : AppCompatEditText {
         val sps = SpannableString(text)
 
         val start =
-            selectionEnd - htmlText.toString().length - if (TextUtils.isEmpty(model.getContent())) 1 else 0
-        val end = selectionEnd
+            selectionEnd - htmlText.toString().length
+        val end = selectionEnd - 1
         makeSpan(sps, start, end, model)
         setText(sps)
         setSelection(end)
@@ -138,14 +138,15 @@ class RichEditText : AppCompatEditText {
             if (lengthBefore == 1 && lengthAfter == 0) {
                 val spans = it.getSpans(0, it.length, AtTextSpan::class.java)
                 for (itemSpan in spans) {
-                    if (it.getSpanEnd(itemSpan) == start && !text.toString().endsWith(
+                    val spanEnd = it.getSpanEnd(itemSpan)
+                    if (spanEnd == start && !text.toString().endsWith(
                             itemSpan.model.getContentRule()
                         )
                     ) {
                         val spanStart = it.getSpanStart(itemSpan)
                         it.delete(
-                            it.getSpanStart(itemSpan),
-                            it.getSpanEnd(itemSpan)
+                            spanStart,
+                            spanEnd
                         )
                         post {
                             setSelection(spanStart)

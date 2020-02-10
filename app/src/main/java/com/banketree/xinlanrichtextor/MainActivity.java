@@ -119,6 +119,6 @@ public class MainActivity extends AppCompatActivity {
         richModelList.add(new RichModel("@dflgjd@", "#f77500"));
         richModelList.add(new RichModel("@fklgj@", "#f77500"));
         richModelList.add(new RichModel("@lgjf@", "#f77500"));
-        richEditor2.setTextToSpan("sdlkj@dflgjd@ @fklgj@ kdf@lgjf@ ldkgjkflghjflgkhjlkgfhjlkfg", richModelList);
+        richEditor2.setTextToSpan("@dflgjd@ ss @fklgj@ kdf@lgjf@ ldkgjkflghjflgkhjlkgfhjlkfg", richModelList);
     }
 }
