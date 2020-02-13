@@ -12,6 +12,7 @@ import java.util.ArrayList
 
 
 class RichEditText : AppCompatEditText {
+    var iRichModelListener: IRichModelListener? = null
 
     constructor(context: Context) : super(context) {
         initView()
@@ -152,7 +153,7 @@ class RichEditText : AppCompatEditText {
                         post {
                             setSelection(spanStart)
                         }
-
+                        iRichModelListener?.onRemove(itemSpan.model)
                         break
                     }
                 }
