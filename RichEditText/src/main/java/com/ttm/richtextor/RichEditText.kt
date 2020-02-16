@@ -2,6 +2,7 @@ package com.ttm.richtextor
 
 import android.content.Context
 import android.text.*
+import android.text.method.KeyListener
 import android.text.style.MetricAffectingSpan
 import android.util.AttributeSet
 import com.mabeijianxi.jianxiexpression.widget.ExpressionEditText
@@ -11,6 +12,7 @@ import java.util.ArrayList
 
 class RichEditText : ExpressionEditText {
     var iRichModelListener: IRichModelListener? = null
+    private var recordKeyListener: KeyListener? = null
 
     constructor(context: Context) : super(context) {
         initView()
@@ -204,6 +206,12 @@ class RichEditText : ExpressionEditText {
                 }
             }
         }
+    }
+
+    fun enableKeyListener(enale: Boolean) {
+        if (recordKeyListener == null) recordKeyListener = keyListener
+        if (enale) keyListener = recordKeyListener
+        keyListener = null
     }
 
     private inner class AtTextSpan(val model: RichModel) : MetricAffectingSpan() {

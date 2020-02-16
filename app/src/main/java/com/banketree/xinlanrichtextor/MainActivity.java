@@ -7,6 +7,7 @@ import android.text.InputFilter;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -59,16 +60,23 @@ public class MainActivity extends AppCompatActivity implements ExpressionGridFra
                 startActivityForResult(new Intent(MainActivity.this, StockListActivity.class), REQUEST_STOCK_CODE_CLICK);
                 break;
             case R.id.btn_get1:
-                addSpan();
-                addSpan();
-                addSpan();
-                addSpan();
-                addSpan();
-                addSpan();
+//                addSpan();
+//                addSpan();
+//                addSpan();
+//                addSpan();
+//                addSpan();
+//                addSpan();
 //                tvContent.setText(richEditor.getRichContent());
 //
 //                List<RichModel> list = richEditor2.getRichModelList();
 //                Log.i("", "" + list.size());
+
+                String text = "@小明5@ [e]ad_xiaoku[/e][e]ak_qinqin[/e][e]ap_haixiu[/e]#股票代码2# ";//richEditor2.getText().toString();
+                List<RichModel> richModelList = new ArrayList<>();
+                richModelList.add(new RichModel("@dflgjd@", "#f77500"));
+                richModelList.add(new RichModel("@fklgj@", "#f77500"));
+                richModelList.add(new RichModel("@lgjf@", "#f77500"));
+                richEditor2.setTextToSpan("@dflgjd@ [e]ad_xiaoku[/e][e]ak_qinqin[/e][e]ap_haixiu[/e]ss @fklgj@ kdf@lgjf@ ldkgjkflg[e]ad_xiaoku[/e][e]ak_qinqin[/e][e]ap_haixiu[/e]hjflgkhjlkgfhjlkfg", richModelList);
                 break;
             case R.id.btn_emoji:
 //                emojiLayout.hideKeyboard();
