@@ -56,7 +56,7 @@ public class ExpressionGridFragment extends Fragment implements AdapterView.OnIt
 
         if (getActivity() instanceof ExpressionDeleteClickListener) {
             mExpressionDeleteClickListener = (ExpressionDeleteClickListener) getActivity();
-        }  else {
+        } else {
             throw new IllegalArgumentException(activity + "需要实现ExpressionDeleteClickListener");
         }
     }
@@ -71,15 +71,15 @@ public class ExpressionGridFragment extends Fragment implements AdapterView.OnIt
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         CustomGridView gv_expression = (CustomGridView) view.findViewById(R.id.gv_expression);
-        expressionItemAdapter = new ExpressionItemAdapter(getActivity(), mExpressionName);
+        expressionItemAdapter = new ExpressionItemAdapter(getActivity().getApplicationContext(), mExpressionName);
         gv_expression.setAdapter(expressionItemAdapter);
         gv_expression.setOnItemClickListener(this);
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        if(position==20){
-            if(mExpressionDeleteClickListener!=null){
+        if (position == 20) {
+            if (mExpressionDeleteClickListener != null) {
                 mExpressionDeleteClickListener.expressionDeleteClick(view);
             }
             return;
@@ -93,7 +93,14 @@ public class ExpressionGridFragment extends Fragment implements AdapterView.OnIt
                 mExpressionaddRecentListener.expressionaddRecent(itemAtPosition);
             }
         }
+    }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mExpressionClickListener = null;
+        expressionItemAdapter = null;
+        mExpressionDeleteClickListener = null;
     }
 
     /**
