@@ -59,4 +59,5 @@ dependencies {
     implementation dependence['constraintlayout']
 
     implementation project(path: ':RichEditText')
+    implementation project(path: ':Expression')
 }

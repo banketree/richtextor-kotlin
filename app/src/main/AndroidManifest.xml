@@ -17,6 +17,9 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".MainActivity2"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".UserListActivity"
             android:screenOrientation="portrait" />
         <activity

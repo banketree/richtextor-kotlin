@@ -4,14 +4,12 @@ import android.content.Context
 import android.text.*
 import android.text.style.MetricAffectingSpan
 import android.util.AttributeSet
-import android.util.Log
-
-import androidx.appcompat.widget.AppCompatEditText
+import com.mabeijianxi.jianxiexpression.widget.ExpressionEditText
 import com.ttm.richtextor.model.RichModel
 import java.util.ArrayList
 
 
-class RichEditText : AppCompatEditText {
+class RichEditText : ExpressionEditText {
     var iRichModelListener: IRichModelListener? = null
 
     constructor(context: Context) : super(context) {

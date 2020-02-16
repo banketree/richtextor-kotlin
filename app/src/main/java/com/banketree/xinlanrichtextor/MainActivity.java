@@ -1,16 +1,18 @@
 package com.banketree.xinlanrichtextor;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.InputFilter;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.banketree.xinlanrichtextor.util.ScreenUtils;
+import com.mabeijianxi.jianxiexpression.ExpressionGridFragment;
+import com.mabeijianxi.jianxiexpression.ExpressionShowFragment;
 import com.ttm.richtextor.CharFilter;
 import com.ttm.richtextor.RichEditText;
 import com.ttm.richtextor.model.RichModel;
@@ -20,7 +22,7 @@ import java.util.List;
 import java.util.Random;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ExpressionGridFragment.ExpressionClickListener, ExpressionGridFragment.ExpressionDeleteClickListener {
 
     public final static int REQUEST_USER_CODE_CLICK = 2222;
     public final static int REQUEST_STOCK_CODE_CLICK = 3333;
@@ -28,32 +30,23 @@ public class MainActivity extends AppCompatActivity {
     String[] str = new String[]{"dsdsd", "fdfdfd", "hghghgh", "gtrtrt", "rtrtrt", "sdsdsd"};
     private final static String MASK_STR = "@";
 
-    RichEditor richEditor;
     RichEditText richEditor2;
-    RelativeLayout activityMain;
     Button btnAt;
     Button btnTopic;
     Button btnGet1;
     TextView tvContent;
     Button btnEmoji;
-//    EmojiLayout emojiLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        richEditor = findViewById(R.id.richEditor);
         richEditor2 = findViewById(R.id.richEditor2);
-        activityMain = findViewById(R.id.activity_main);
         btnAt = findViewById(R.id.btn_at);
         btnTopic = findViewById(R.id.btn_topic);
         btnGet1 = findViewById(R.id.btn_get1);
         tvContent = findViewById(R.id.tv_content);
         btnEmoji = findViewById(R.id.btn_emoji);
-//        emojiLayout = findViewById(R.id.emojiLayout);
-//        emojiLayout.setEditTextSmile(richEditor);
-
         richEditor2.setFilters(new InputFilter[]{CharFilter.Companion.newlineCharFilter()});
     }
 
@@ -66,30 +59,40 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(new Intent(MainActivity.this, StockListActivity.class), REQUEST_STOCK_CODE_CLICK);
                 break;
             case R.id.btn_get1:
-                tvContent.setText(richEditor.getRichContent());
-
-                List<RichModel> list = richEditor2.getRichModelList();
-                Log.i("", "" + list.size());
+                addSpan();
+                addSpan();
+                addSpan();
+                addSpan();
+                addSpan();
+                addSpan();
+//                tvContent.setText(richEditor.getRichContent());
+//
+//                List<RichModel> list = richEditor2.getRichModelList();
+//                Log.i("", "" + list.size());
                 break;
             case R.id.btn_emoji:
-                addSpan();
-                addSpan();
-                addSpan();
-                addSpan();
-                addSpan();
-                addSpan();
 //                emojiLayout.hideKeyboard();
 //                if (emojiLayout.getVisibility() == View.VISIBLE) {
 //                    emojiLayout.setVisibility(View.GONE);
 //                } else {
 //                    emojiLayout.setVisibility(View.VISIBLE);
 //                }
+//                startActivity(new Intent(this, MainActivity2.class));
+                replaceEmogi();
                 break;
             case R.id.activity_main:
 //                emojiLayout.setVisibility(View.GONE);
-
                 break;
         }
+    }
+
+
+    /**
+     * 表情显示
+     */
+    private void replaceEmogi() {
+//        fl_emogi.setVisibility(View.VISIBLE);
+        getSupportFragmentManager().beginTransaction().replace(R.id.fl_emogi, ExpressionShowFragment.newInstance()).commit();
     }
 
     @Override
@@ -99,11 +102,11 @@ public class MainActivity extends AppCompatActivity {
             switch (requestCode) {
                 case REQUEST_USER_CODE_CLICK:
                     UserModel userModel = (UserModel) data.getSerializableExtra(UserListActivity.DATA);
-                    richEditor.insertSpecialStr(new RichModel("@", userModel.getName(), "#f77500"));
+                    richEditor2.addSpan(new RichModel("@", userModel.getName(), "#f77500"));
                     break;
                 case REQUEST_STOCK_CODE_CLICK:
                     UserModel stockModel = (UserModel) data.getSerializableExtra(StockListActivity.DATA);
-                    richEditor.insertSpecialStr(new RichModel("#", stockModel.getName(), "#f77500"));
+                    richEditor2.addSpan(new RichModel("#", stockModel.getName(), "#f77500"));
                     break;
             }
         }
@@ -120,5 +123,15 @@ public class MainActivity extends AppCompatActivity {
         richModelList.add(new RichModel("@fklgj@", "#f77500"));
         richModelList.add(new RichModel("@lgjf@", "#f77500"));
         richEditor2.setTextToSpan("@dflgjd@ ss @fklgj@ kdf@lgjf@ ldkgjkflghjflgkhjlkgfhjlkfg", richModelList);
+    }
+
+    @Override
+    public void expressionClick(String str) {
+        ExpressionShowFragment.input(richEditor2, str);
+    }
+
+    @Override
+    public void expressionDeleteClick(View v) {
+        ExpressionShowFragment.delete(richEditor2);
     }
 }
