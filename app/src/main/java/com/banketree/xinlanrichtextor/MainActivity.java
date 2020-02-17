@@ -1,7 +1,6 @@
 package com.banketree.xinlanrichtextor;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.view.View;
@@ -11,12 +10,15 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.banketree.xinlanrichtextor.util.ScreenUtils;
 import com.mabeijianxi.jianxiexpression.ExpressionGridFragment;
 import com.mabeijianxi.jianxiexpression.ExpressionShowFragment;
 import com.ttm.richtextor.CharFilter;
+import com.ttm.richtextor.RichClickListener;
 import com.ttm.richtextor.RichEditText;
+import com.ttm.richtextor.RichTextView;
 import com.ttm.richtextor.model.RichModel;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements ExpressionGridFra
     Button btnGet1;
     TextView tvContent;
     Button btnEmoji;
+    RichTextView richTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +51,25 @@ public class MainActivity extends AppCompatActivity implements ExpressionGridFra
         btnGet1 = findViewById(R.id.btn_get1);
         tvContent = findViewById(R.id.tv_content);
         btnEmoji = findViewById(R.id.btn_emoji);
+        richTextView = findViewById(R.id.richTextView);
         richEditor2.setFilters(new InputFilter[]{CharFilter.Companion.newlineCharFilter()});
+
+        richTextView.setRichClickListener(new RichClickListener() {
+            @Override
+            public void onClick(@NotNull RichModel richModel) {
+                Toast.makeText(MainActivity.this, richModel.getContent(), Toast.LENGTH_SHORT).show();
+            }
+        });
+        richTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (richTextView.isSpanClicked()) {
+                    Toast.makeText(MainActivity.this, "clicked", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(MainActivity.this, "test", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     public void onClick(View view) {
@@ -76,7 +97,16 @@ public class MainActivity extends AppCompatActivity implements ExpressionGridFra
                 richModelList.add(new RichModel("@dflgjd@", "#f77500"));
                 richModelList.add(new RichModel("@fklgj@", "#f77500"));
                 richModelList.add(new RichModel("@lgjf@", "#f77500"));
+//                richEditor2.setIRichClickListener(new RichClickListener() {
+//
+//                    @Override
+//                    public void onClick(@NotNull RichModel richModel) {
+//                        Toast.makeText(MainActivity.this, richModel.getContent(), Toast.LENGTH_SHORT).show();
+//                    }
+//                });
                 richEditor2.setTextToSpan("@dflgjd@ [e]ad_xiaoku[/e][e]ak_qinqin[/e][e]ap_haixiu[/e]ss @fklgj@ kdf@lgjf@ ldkgjkflg[e]ad_xiaoku[/e][e]ak_qinqin[/e][e]ap_haixiu[/e]hjflgkhjlkgfhjlkfg", richModelList);
+                richTextView.setTextToSpan("@dflgjd@ [e]ad_xiaoku[/e][e]ak_qinqin[/e][e]ap_haixiu[/e]ss @fklgj@ kdf@lgjf@ ldkgjkflg[e]ad_xiaoku[/e][e]ak_qinqin[/e][e]ap_haixiu[/e]hjflgkhjlkgfhjlkfg", richModelList);
+//                richEditor2.enableKeyListener(false);
                 break;
             case R.id.btn_emoji:
 //                emojiLayout.hideKeyboard();
