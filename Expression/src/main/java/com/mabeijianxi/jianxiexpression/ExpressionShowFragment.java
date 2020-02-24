@@ -61,7 +61,7 @@ public class ExpressionShowFragment extends Fragment implements ExpressionGridFr
 
         expressionRecentsFragment = new ExpressionRecentsFragment();
 //        最近使用
-        expressionInerFragments.add(expressionRecentsFragment);
+//        expressionInerFragments.add(expressionRecentsFragment);
 //        表情一
         expressionInerFragments.add(ExpressionInerFragment.newInstance(new String[][]{ExpressionCache.page_1, ExpressionCache.page_2, ExpressionCache.page_3,ExpressionCache.page_4, ExpressionCache.page_5}));
 //       表二

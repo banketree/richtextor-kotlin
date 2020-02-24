@@ -285,11 +285,11 @@ public class ExpressionCache {
      * @return
      */
     public static String[] getPageTitle() {
-        String category_1 = "最近";
+//        String category_1 = "最近";
         String category_2 = "表情";
 //        String category_3 = "表二";
         if (pageTitle == null) {
-            pageTitle = new String[]{category_1, category_2};
+            pageTitle = new String[]{category_2};//category_1,
         }
         return pageTitle;
     }

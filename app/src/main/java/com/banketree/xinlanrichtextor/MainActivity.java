@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.mabeijianxi.jianxiexpression.ExpressionGridFragment;
+import com.mabeijianxi.jianxiexpression.ExpressionManager;
 import com.mabeijianxi.jianxiexpression.ExpressionShowFragment;
 import com.ttm.richtextor.CharFilter;
 import com.ttm.richtextor.RichClickListener;
@@ -25,7 +26,7 @@ import java.util.List;
 import java.util.Random;
 
 
-public class MainActivity extends AppCompatActivity implements ExpressionGridFragment.ExpressionClickListener, ExpressionGridFragment.ExpressionDeleteClickListener {
+public class MainActivity extends AppCompatActivity  {
 
     public final static int REQUEST_USER_CODE_CLICK = 2222;
     public final static int REQUEST_STOCK_CODE_CLICK = 3333;
@@ -131,6 +132,22 @@ public class MainActivity extends AppCompatActivity implements ExpressionGridFra
     private void replaceEmogi() {
 //        fl_emogi.setVisibility(View.VISIBLE);
         getSupportFragmentManager().beginTransaction().replace(R.id.fl_emogi, ExpressionShowFragment.newInstance()).commit();
+
+        ExpressionManager.getInstance().setExpressionDeleteClickListener(new ExpressionGridFragment.ExpressionDeleteClickListener(){
+
+            @Override
+            public void expressionDeleteClick(View v) {
+                ExpressionShowFragment.delete(richEditor2);
+            }
+        });
+
+        ExpressionManager.getInstance().setExpressionClickListener(new ExpressionGridFragment.ExpressionClickListener(){
+
+            @Override
+            public void expressionClick(String str) {
+                ExpressionShowFragment.input(richEditor2, str);
+            }
+        });
     }
 
     @Override
@@ -161,15 +178,5 @@ public class MainActivity extends AppCompatActivity implements ExpressionGridFra
         richModelList.add(new RichModel("@fklgj@", "#f77500"));
         richModelList.add(new RichModel("@lgjf@", "#f77500"));
         richEditor2.setTextToSpan("@dflgjd@ ss @fklgj@ kdf@lgjf@ ldkgjkflghjflgkhjlkgfhjlkfg", richModelList);
-    }
-
-    @Override
-    public void expressionClick(String str) {
-        ExpressionShowFragment.input(richEditor2, str);
-    }
-
-    @Override
-    public void expressionDeleteClick(View v) {
-        ExpressionShowFragment.delete(richEditor2);
     }
 }

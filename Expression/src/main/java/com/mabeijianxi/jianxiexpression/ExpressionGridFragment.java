@@ -21,10 +21,7 @@ import com.mabeijianxi.jianxiexpression.widget.CustomGridView;
  */
 public class ExpressionGridFragment extends Fragment implements AdapterView.OnItemClickListener {
     private String[] mExpressionName;
-    private ExpressionClickListener mExpressionClickListener;
-    private ExpressionaddRecentListener mExpressionaddRecentListener;
     private ExpressionItemAdapter expressionItemAdapter;
-    private ExpressionDeleteClickListener mExpressionDeleteClickListener;
 
     public static ExpressionGridFragment newInstance(String[] expressionName) {
         ExpressionGridFragment expressionGridFragment = new ExpressionGridFragment();
@@ -39,26 +36,26 @@ public class ExpressionGridFragment extends Fragment implements AdapterView.OnIt
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        if (getActivity() instanceof ExpressionClickListener) {
-            mExpressionClickListener = (ExpressionClickListener) getActivity();
-        } else if (getParentFragment() instanceof ExpressionClickListener) {
-            mExpressionClickListener = (ExpressionClickListener) getParentFragment();
-        } else {
-//            这里必须实现ExpressionClickListener，不然没法添加表情到输入框
-            throw new IllegalArgumentException("需要实现ExpressionClickListener");
-        }
-//        获取添加到最近使用的具体实现
-        if (getActivity() instanceof ExpressionaddRecentListener) {
-            mExpressionaddRecentListener = (ExpressionaddRecentListener) getActivity();
-        } else if (getParentFragment().getParentFragment() instanceof ExpressionaddRecentListener) {
-            mExpressionaddRecentListener = (ExpressionaddRecentListener) getParentFragment().getParentFragment();
-        }
-
-        if (getActivity() instanceof ExpressionDeleteClickListener) {
-            mExpressionDeleteClickListener = (ExpressionDeleteClickListener) getActivity();
-        } else {
-            throw new IllegalArgumentException(activity + "需要实现ExpressionDeleteClickListener");
-        }
+//        if (getActivity() instanceof ExpressionClickListener) {
+//            mExpressionClickListener = (ExpressionClickListener) getActivity();
+//        } else if (getParentFragment() instanceof ExpressionClickListener) {
+//            mExpressionClickListener = (ExpressionClickListener) getParentFragment();
+//        } else {
+////            这里必须实现ExpressionClickListener，不然没法添加表情到输入框
+//            throw new IllegalArgumentException("需要实现ExpressionClickListener");
+//        }
+////        获取添加到最近使用的具体实现
+//        if (getActivity() instanceof ExpressionaddRecentListener) {
+//            mExpressionaddRecentListener = (ExpressionaddRecentListener) getActivity();
+//        } else if (getParentFragment().getParentFragment() instanceof ExpressionaddRecentListener) {
+//            mExpressionaddRecentListener = (ExpressionaddRecentListener) getParentFragment().getParentFragment();
+//        }
+//
+//        if (getActivity() instanceof ExpressionDeleteClickListener) {
+//            mExpressionDeleteClickListener = (ExpressionDeleteClickListener) getActivity();
+//        } else {
+//            throw new IllegalArgumentException(activity + "需要实现ExpressionDeleteClickListener");
+//        }
     }
 
     @Nullable
@@ -79,18 +76,23 @@ public class ExpressionGridFragment extends Fragment implements AdapterView.OnIt
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if (position == 20) {
-            if (mExpressionDeleteClickListener != null) {
-                mExpressionDeleteClickListener.expressionDeleteClick(view);
+            if (ExpressionManager.getInstance().getExpressionDeleteClickListener() != null) {
+                ExpressionManager.getInstance().getExpressionDeleteClickListener().expressionDeleteClick(view);
             }
             return;
         }
 
         String itemAtPosition = (String) parent.getItemAtPosition(position);
         if (!TextUtils.isEmpty(itemAtPosition)) {
-            mExpressionClickListener.expressionClick(itemAtPosition);
+
+            if (ExpressionManager.getInstance().getExpressionClickListener() != null) {
+                ExpressionManager.getInstance().getExpressionClickListener().expressionClick(itemAtPosition);
+            }
+
             ExpressionTransformEngine.addRecentExpression(itemAtPosition);
-            if (mExpressionaddRecentListener != null) {
-                mExpressionaddRecentListener.expressionaddRecent(itemAtPosition);
+
+            if (ExpressionManager.getInstance().getExpressionaddRecentListener() != null) {
+                ExpressionManager.getInstance().getExpressionaddRecentListener().expressionaddRecent(itemAtPosition);
             }
         }
     }
@@ -98,9 +100,7 @@ public class ExpressionGridFragment extends Fragment implements AdapterView.OnIt
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mExpressionClickListener = null;
         expressionItemAdapter = null;
-        mExpressionDeleteClickListener = null;
     }
 
     /**
