@@ -28,6 +28,7 @@ public class ExpressionManager {
         mExpressionClickListener = null;
         mExpressionaddRecentListener = null;
         mExpressionDeleteClickListener = null;
+        instance = null;
     }
 
 
