@@ -49,7 +49,7 @@ public class ExpressionSpan extends DynamicDrawableSpan {
 
     public ExpressionSpan(Context context, int resourceId, int size, int alignment, int textSize) {
         super(alignment);
-        mContext = context;
+        mContext = context.getApplicationContext();
         mResourceId = resourceId;
         mWidth = mHeight = mSize = size;
         mTextSize = textSize;
