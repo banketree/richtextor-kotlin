@@ -11,49 +11,49 @@ import java.util.HashMap;
 public class ExpressionCache {
     //    TODO 每页数据资源，可自己定义，自己更改
     public static final String[] page_1 = new String[]{
-            "[e]aa_keai[/e]", "[e]ab_haha[/e]", "[e]ac_xixi[/e]",
-            "[e]ad_xiaoku[/e]", "[e]ae_sikao[/e]", "[e]af_numa[/e]",
-            "[e]ag_xu[/e]", "[e]ah_guzhang[/e]", "[e]ai_zuohengheng[/e]",
-            "[e]aj_youhengheng[/e]", "[e]ak_qinqin[/e]", "[e]al_yiwen[/e]",
-            "[e]am_baibai[/e]", "[e]an_hehe[/e]", "[e]ao_yinxian[/e]",
-            "[e]ap_haixiu[/e]", "[e]aq_jiyan[/e]", "[e]ar_dalian[/e]",
-            "[e]as_nu[/e]", "[e]at_lei[/e]", ""
-
+            "[e]可爱[/e]", "[e]哈哈[/e]", "[e]嘻嘻[/e]",
+            "[e]笑哭[/e]", "[e]思考[/e]", "[e]怒骂[/e]",
+            "[e]嘘[/e]", "[e]鼓掌[/e]", "[e]左哼哼[/e]",
+            "[e]右哼哼[/e]", "[e]亲亲[/e]", "[e]疑问[/e]",
+            "[e]拜拜[/e]", "[e]呵呵[/e]", "[e]阴险[/e]",
+            "[e]害羞[/e]", "[e]挤眼[/e]", "[e]打脸[/e]",
+            "[e]怒[/e]", "[e]累[/e]", ""
     };
+
     public static final String[] page_2 = new String[]{
-            "[e]ba_bishi[/e]", "[e]bb_chanzui[/e]", "[e]bc_chijing[/e]",
-            "[e]bd_dahaqi[/e]", "[e]be_beishang[/e]", "[e]bf_bizui[/e]",
-            "[e]bg_ding[/e]", "[e]bh_ganmao[/e]", "[e]bi_han[/e]",
-            "[e]bj_aini[/e]", "[e]bk_heixian[/e]", "[e]bl_heng[/e]",
-            "[e]bm_huaxin[/e]", "[e]bn_kelian[/e]", "[e]bo_ku[/e]",
-            "[e]bp_kun[/e]", "[e]bq_landelini[/e]", "[e]br_qian[/e]",
-            "[e]bs_shayan[/e]", "[e]bt_shengbing[/e]", ""
+            "[e]鄙视[/e]", "[e]馋嘴[/e]", "[e]吃惊[/e]",
+            "[e]打哈气[/e]", "[e]悲伤[/e]", "[e]闭嘴[/e]",
+            "[e]顶[/e]", "[e]感冒[/e]", "[e]汗[/e]",
+            "[e]爱你[/e]", "[e]黑线[/e]", "[e]哼[/e]",
+            "[e]花心[/e]", "[e]可怜[/e]", "[e]酷[/e]",
+            "[e]困[/e]", "[e]懒得理你[/e]", "[e]钱[/e]",
+            "[e]傻眼[/e]", "[e]生病[/e]", ""
     };
     public static final String[] page_3 = new String[]{
-            "[e]ca_shiwang[/e]", "[e]cb_shuijiao[/e]", "[e]cc_zhuakuang[/e]",
-            "[e]cd_taikaixin[/e]", "[e]ce_touxiao[/e]", "[e]cf_tu[/e]",
-            "[e]cg_wabishi[/e]", "[e]ch_weiqu[/e]", "[e]ci_yun[/e]",
-            "[e]cj_shuai[/e]", "[e]ck_doge[/e]", "[e]cl_miao[/e]",
-            "[e]cm_xiongmao[/e]", "[e]cn_tuzi[/e]", "[e]co_zhutou[/e]",
-            "[e]cp_shenshou[/e]", "[e]cq_nanhaier[/e]", "[e]cr_nvhaier[/e]",
-            "[e]cs_feizao[/e]", "[e]ct_aoteman[/e]", ""
+            "[e]失望[/e]", "[e]睡觉[/e]", "[e]抓狂[/e]",
+            "[e]太开心[/e]", "[e]偷笑[/e]", "[e]吐[/e]",
+            "[e]挖鼻屎[/e]", "[e]委屈[/e]", "[e]晕[/e]",
+            "[e]帅[/e]", "[e]狗[/e]", "[e]猫[/e]",
+            "[e]熊猫[/e]", "[e]兔子[/e]", "[e]猪头[/e]",
+            "[e]神兽[/e]", "[e]男孩儿[/e]", "[e]女孩儿[/e]",
+            "[e]肥皂[/e]", "[e]奥特曼[/e]", ""
     };
     public static final String[] page_4 = new String[]{
-            "[e]da_geili[/e]", "[e]db_jiong[/e]", "[e]dc_meng[/e]",
-            "[e]dd_shenma[/e]", "[e]de_v5[/e]", "[e]df_xi[/e]",
-            "[e]dg_zhi[/e]", "[e]dh_buyao[/e]", "[e]di_good[/e]",
-            "[e]dj_haha[/e]", "[e]dk_lai[/e]", "[e]dl_ok[/e]",
-            "[e]dm_ruo[/e]", "[e]dn_woshou[/e]", "[e]do_ye[/e]",
-            "[e]dp_zan[/e]", "[e]dq_zuoyi[/e]", "[e]dr_shangxin[/e]",
-            "[e]ds_xin[/e]", "[e]dt_dangao[/e]", ""
+            "[e]给力[/e]", "[e]囧[/e]", "[e]萌[/e]",
+            "[e]神马[/e]", "[e]v5[/e]", "[e]双喜[/e]",
+            "[e]织[/e]", "[e]不要[/e]", "[e]棒[/e]",
+            "[e]六六[/e]", "[e]来[/e]", "[e]ok[/e]",
+            "[e]弱[/e]", "[e]握手[/e]", "[e]耶[/e]",
+            "[e]赞[/e]", "[e]作揖[/e]", "[e]伤心[/e]",
+            "[e]心[/e]", "[e]蛋糕[/e]", ""
     };
     public static final String[] page_5 = new String[]{
-            "[e]ea_feiji[/e]", "[e]eb_ganbei[/e]", "[e]ec_huatong[/e]",
-            "[e]ed_lazhu[/e]", "[e]ee_liwu[/e]", "[e]ef_lvsidai[/e]",
-            "[e]eg_weibo[/e]", "[e]eh_weiguan[/e]", "[e]ei_yinyue[/e]",
-            "[e]ej_zhaoxiangji[/e]", "[e]ek_zhong[/e]", "[e]el_weifeng[/e]",
-            "[e]em_xianhua[/e]", "[e]en_taiyang[/e]", "[e]eo_yueliang[/e]",
-            "[e]ep_fuyun[/e]", "[e]eq_xiayu[/e]", "[e]er_shachenbao[/e]",
+            "[e]飞机[/e]", "[e]干杯[/e]", "[e]话筒[/e]",
+            "[e]蜡烛[/e]", "[e]礼物[/e]", "[e]绿丝带[/e]",
+            "[e]围脖[/e]", "[e]围观[/e]", "[e]音乐[/e]",
+            "[e]照相机[/e]", "[e]钟[/e]", "[e]微风[/e]",
+            "[e]鲜花[/e]", "[e]太阳[/e]", "[e]月亮[/e]",
+            "[e]浮云[/e]", "[e]下雨[/e]", "[e]沙尘暴[/e]",
             "", "", ""
     };
 
