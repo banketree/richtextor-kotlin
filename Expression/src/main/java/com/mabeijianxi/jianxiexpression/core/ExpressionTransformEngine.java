@@ -30,7 +30,7 @@ public class ExpressionTransformEngine {
             SpanIndex.put(text.getSpanStart(oldSpans[i]), text.getSpanEnd(oldSpans[i]));
         }
 
-        String PATTERN = "\\[e](.*?)\\[/e]";
+        String PATTERN = "\\[(.*?)\\]";
         Pattern p = Pattern.compile(PATTERN);
         Matcher m = p.matcher(text);
         while (m.find()) {
@@ -46,7 +46,7 @@ public class ExpressionTransformEngine {
             if (index!=null&&index>=0) {
                 id = index;
             } else {
-                String afterGroup = beferGroup.replaceAll("\\[e]|\\[/e]", "");
+                String afterGroup = beferGroup.replaceAll("\\[|\\]", "");
 
                 id = context.getResources().getIdentifier(afterGroup, "drawable", context.getPackageName());
             }

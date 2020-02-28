@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity  {
 //                List<RichModel> list = richEditor2.getRichModelList();
 //                Log.i("", "" + list.size());
 
-                String text = "@小明5@ [e]ad_xiaoku[/e][e]ak_qinqin[/e][e]ap_haixiu[/e]#股票代码2# ";//richEditor2.getText().toString();
+                String text = "@小明5@ [笑哭][亲亲][害羞]#股票代码2# ";//richEditor2.getText().toString();
                 List<RichModel> richModelList = new ArrayList<>();
                 richModelList.add(new RichModel("@dflgjd@", "#f77500"));
                 richModelList.add(new RichModel("@fklgj@", "#f77500"));
@@ -105,8 +105,8 @@ public class MainActivity extends AppCompatActivity  {
 //                        Toast.makeText(MainActivity.this, richModel.getContent(), Toast.LENGTH_SHORT).show();
 //                    }
 //                });
-                richEditor2.setTextToSpan("@dflgjd@ [e]ad_xiaoku[/e][e]ak_qinqin[/e][e]ap_haixiu[/e]ss @fklgj@ kdf@lgjf@ ldkgjkflg[e]ad_xiaoku[/e][e]ak_qinqin[/e][e]ap_haixiu[/e]hjflgkhjlkgfhjlkfg", richModelList);
-                richTextView.setTextToSpan("@dflgjd@ [e]ad_xiaoku[/e][e]ak_qinqin[/e][e]ap_haixiu[/e]ss @fklgj@ kdf@lgjf@ ldkgjkflg[e]ad_xiaoku[/e][e]ak_qinqin[/e][e]ap_haixiu[/e]hjflgkhjlkgfhjlkfg", richModelList);
+                richEditor2.setTextToSpan("@dflgjd@ [笑哭][亲亲][害羞]ss @fklgj@ kdf@lgjf@ ldkgjkflg[笑哭][亲亲][害羞]hjflgkhjlkgfhjlkfg", richModelList);
+                richTextView.setTextToSpan("@dflgjd@ [笑哭][亲亲][害羞]ss @fklgj@ kdf@lgjf@ ldkgjkflg[笑哭][亲亲][害羞]hjflgkhjlkgfhjlkfg", richModelList);
 //                richEditor2.enableKeyListener(false);
                 break;
             case R.id.btn_emoji:
