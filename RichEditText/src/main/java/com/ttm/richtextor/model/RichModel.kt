@@ -24,7 +24,7 @@ class RichModel {
     }
 
     fun isValid(): Boolean {
-        return !TextUtils.isEmpty(rule) && !TextUtils.isEmpty(content)
+        return !TextUtils.isEmpty(content)
     }
 
     fun getContent(): String {
