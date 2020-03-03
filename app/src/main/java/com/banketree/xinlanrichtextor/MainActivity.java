@@ -95,9 +95,9 @@ public class MainActivity extends AppCompatActivity  {
 
                 String text = "@小明5@ [笑哭][亲亲][害羞]#股票代码2# ";//richEditor2.getText().toString();
                 List<RichModel> richModelList = new ArrayList<>();
-                richModelList.add(new RichModel("@dflgjd@", "#f77500"));
-                richModelList.add(new RichModel("@fklgj@", "#f77500"));
-                richModelList.add(new RichModel("@lgjf@", "#f77500"));
+                richModelList.add(new HideModel("","@dflgjd@", "#f77500"));
+                richModelList.add(new HideModel("","@fklgj@", "#f77500"));
+                richModelList.add(new HideModel("","@lgjf@", "#f77500"));
 //                richEditor2.setIRichClickListener(new RichClickListener() {
 //
 //                    @Override
@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity  {
 //                    }
 //                });
                 richEditor2.setTextToSpan("@dflgjd@ [笑哭][亲亲][害羞]ss @fklgj@ kdf@lgjf@ ldkgjkflg[笑哭][亲亲][害羞]hjflgkhjlkgfhjlkfg", richModelList);
-                richTextView.setTextToSpan("@dflgjd@ [笑哭][亲亲][害羞]ss @fklgj@ kdf@lgjf@ ldkgjkflg[笑哭][亲亲][害羞]hjflgkhjlkgfhjlkfg", richModelList);
+                richTextView.setTextToSpan("@dflgjd@[笑哭][亲亲][害羞]ss @fklgj@kdf@lgjf@ldkgjkflg[笑哭][亲亲][害羞]hjflgkhjlkgfhjlkfg", richModelList);
 //                richEditor2.enableKeyListener(false);
                 break;
             case R.id.btn_emoji:

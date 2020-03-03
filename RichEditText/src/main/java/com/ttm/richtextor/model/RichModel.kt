@@ -5,9 +5,10 @@ import android.text.Spanned
 import android.text.TextUtils
 
 
-class RichModel {
+open class RichModel {
     var rule: String = ""
-    private var content: String = ""
+    var content: String = ""
+        private set
     var textColor: String = ""
 
     constructor(rule: String, content: String, textColor: String) {
@@ -23,15 +24,11 @@ class RichModel {
         this.textColor = textColor
     }
 
-    fun isValid(): Boolean {
+    open fun isValid(): Boolean {
         return !TextUtils.isEmpty(content)
     }
 
-    fun getContent(): String {
-        return content
-    }
-
-    fun getContentRule(): String {
+    open fun getContentRule(): String {
         return "$rule$content$rule "
     }
 
