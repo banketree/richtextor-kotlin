@@ -42,7 +42,7 @@ class RichEditor : AppCompatEditText {
             if (insertModelList != null && insertModelList.size > 0) {
                 for (i in insertModelList.indices) {
                     val inertModel = insertModelList[i]
-                    content = content.replace(inertModel.getContentRule()!!, "")
+                    content = content.replace(inertModel.content, "")
                 }
             }
             return content.trim { it <= ' ' }
@@ -59,8 +59,7 @@ class RichEditor : AppCompatEditText {
                     val inertModel = insertModelList[i]
                     objectsList.add(
                         RichModel(
-                            inertModel.rule,
-                            inertModel.getContentRule()!!.replace(inertModel.getContentRule()!!, ""),
+                            inertModel.content.replace(inertModel.content, ""),
                             inertModel.textColor
                         )
                     )
@@ -132,7 +131,7 @@ class RichEditor : AppCompatEditText {
             var y = 0
             for (i in insertModelList.indices) {
                 val insertModel = insertModelList[i - y]
-                if (targetText.contains(insertModel.getContentRule())) {
+                if (targetText.contains(insertModel.content)) {
                     insertModelList.remove(insertModel)
                     y++
                 }
@@ -143,7 +142,7 @@ class RichEditor : AppCompatEditText {
          * 遍历判断光标的位置
          * */
         for (i in insertModelList.indices) {
-            val objectText = insertModelList[i].getContentRule()
+            val objectText = insertModelList[i].content
             lastPos = text.toString().indexOf(objectText, lastPos)
             if (lastPos != -1) {
                 if (selectionStart != 0 && selectionStart >= lastPos && selectionStart <= lastPos + objectText.length) {
@@ -169,7 +168,7 @@ class RichEditor : AppCompatEditText {
         var endPostion = 0
         var insertContent: String? = ""
         for (i in insertModelList.indices) {
-            insertContent = insertModelList[i].getContentRule()
+            insertContent = insertModelList[i].content
             startPostion = text!!.toString().indexOf(insertContent!!)
             endPostion = startPostion + insertContent.length
             if (startPostion != -1 && selStart > startPostion
@@ -197,20 +196,15 @@ class RichEditor : AppCompatEditText {
      */
     fun insertSpecialStr(model: RichModel) {
         //避免插入相同的数据
-        for (model in insertModelList) {
-            if (model.getContentRule().replace(
-                    model.rule,
-                    ""
-                ) == model.getContentRule() && model.rule == model.rule
-            ) {
+        for (itemModel in insertModelList) {
+            if (itemModel.content== model.content) {
 //                Toast.makeText(mContext, "不可重复插入", Toast.LENGTH_LONG).show()
                 return
             }
         }
-        val insertRule = model.rule
-        var insertContent = model.getContentRule()
+        var insertContent = model.content
         val insertColor = model.textColor
-        if (TextUtils.isEmpty(insertRule) || TextUtils.isEmpty(insertContent)) {
+        if (TextUtils.isEmpty(insertContent)) {
             return
         }
         insertModelList.add(model)
@@ -264,7 +258,7 @@ class RichEditor : AppCompatEditText {
 
         for (i in insertModelList.indices) {
             val insertModel = insertModelList[i]
-            if (targetText.indexOf(insertModel.getContentRule()) == -1) {
+            if (targetText.indexOf(insertModel.content) == -1) {
                 insertModelList.remove(insertModel)
             }
         }

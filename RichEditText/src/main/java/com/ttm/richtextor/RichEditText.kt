@@ -76,8 +76,8 @@ class RichEditText : ExpressionEditText {
         if (TextUtils.isEmpty(content) || richModels.isEmpty() || text == null) return
         for (richModel in richModels) {
             if (!richModel.isValid()) continue
-            val startSelection = content.indexOf(richModel.getContentRule())
-            val endSelection = startSelection + richModel.getContentRule().length
+            val startSelection = content.indexOf(richModel.content)
+            val endSelection = startSelection + richModel.content.length
             if (startSelection == -1) continue
 
             text!!.delete(startSelection, endSelection)
@@ -141,9 +141,9 @@ class RichEditText : ExpressionEditText {
                 for (itemSpan in spans) {
                     val spanStart = it.getSpanStart(itemSpan)
                     val spanEnd = it.getSpanEnd(itemSpan)
-                    val realEnd = spanStart + itemSpan.model.getContentRule().length
+                    val realEnd = spanStart + itemSpan.model.content.length
                     if (spanEnd == start && realEnd > start && !text.toString().endsWith(
-                            itemSpan.model.getContentRule()
+                            itemSpan.model.content
                         )
                     ) {
                         it.delete(
@@ -168,7 +168,7 @@ class RichEditText : ExpressionEditText {
     private fun hasSpaned(model: RichModel): Boolean {
         getSpanedList()?.let {
             for (itemSpan in it) {
-                if (TextUtils.equals(model.getContentRule(), itemSpan.model.getContentRule())) {
+                if (TextUtils.equals(model.content, itemSpan.model.content)) {
                     return true
                 }
             }
@@ -190,7 +190,7 @@ class RichEditText : ExpressionEditText {
     fun removeRichModel(richModel: RichModel) {
         getSpanedList()?.let {
             for (itemSpan in it) {
-                if (TextUtils.equals(richModel.getContentRule(), itemSpan.model.getContentRule())) {
+                if (TextUtils.equals(richModel.content, itemSpan.model.content)) {
                     //向前删除一个字符，@后的内容必须大于一个字符，可以在后面加一个空格
                     text?.let { editable ->
                         val spanStart = editable.getSpanStart(itemSpan)

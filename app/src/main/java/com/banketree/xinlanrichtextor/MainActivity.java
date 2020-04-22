@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.Random;
 
 
-public class MainActivity extends AppCompatActivity  {
+public class MainActivity extends AppCompatActivity {
 
     public final static int REQUEST_USER_CODE_CLICK = 2222;
     public final static int REQUEST_STOCK_CODE_CLICK = 3333;
@@ -95,9 +95,9 @@ public class MainActivity extends AppCompatActivity  {
 
                 String text = "@小明5@ [笑哭][亲亲][害羞]#股票代码2# ";//richEditor2.getText().toString();
                 List<RichModel> richModelList = new ArrayList<>();
-                richModelList.add(new HideModel("","@dflgjd@", "#f77500"));
-                richModelList.add(new HideModel("","@fklgj@", "#f77500"));
-                richModelList.add(new HideModel("","@lgjf@", "#f77500"));
+                richModelList.add(new HideModel("@dflgjd@", "#f77500"));
+                richModelList.add(new HideModel("@fklgj@", "#f77500"));
+                richModelList.add(new HideModel("@lgjf@", "#f77500"));
 //                richEditor2.setIRichClickListener(new RichClickListener() {
 //
 //                    @Override
@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity  {
 //        fl_emogi.setVisibility(View.VISIBLE);
         getSupportFragmentManager().beginTransaction().replace(R.id.fl_emogi, ExpressionShowFragment.newInstance()).commit();
 
-        ExpressionManager.getInstance().setExpressionDeleteClickListener(new ExpressionGridFragment.ExpressionDeleteClickListener(){
+        ExpressionManager.getInstance().setExpressionDeleteClickListener(new ExpressionGridFragment.ExpressionDeleteClickListener() {
 
             @Override
             public void expressionDeleteClick(View v) {
@@ -141,7 +141,7 @@ public class MainActivity extends AppCompatActivity  {
             }
         });
 
-        ExpressionManager.getInstance().setExpressionClickListener(new ExpressionGridFragment.ExpressionClickListener(){
+        ExpressionManager.getInstance().setExpressionClickListener(new ExpressionGridFragment.ExpressionClickListener() {
 
             @Override
             public void expressionClick(String str) {
@@ -157,11 +157,11 @@ public class MainActivity extends AppCompatActivity  {
             switch (requestCode) {
                 case REQUEST_USER_CODE_CLICK:
                     UserModel userModel = (UserModel) data.getSerializableExtra(UserListActivity.DATA);
-                    richEditor2.addSpan(new RichModel("@", userModel.getName(), "#f77500"));
+                    richEditor2.addSpan(new RichModel("@" + userModel.getName() + "@", "#f77500"));
                     break;
                 case REQUEST_STOCK_CODE_CLICK:
                     UserModel stockModel = (UserModel) data.getSerializableExtra(StockListActivity.DATA);
-                    richEditor2.addSpan(new RichModel("#", stockModel.getName(), "#f77500"));
+                    richEditor2.addSpan(new RichModel("#" + stockModel.getName() + "#", "#f77500"));
                     break;
             }
         }

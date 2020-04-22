@@ -44,8 +44,8 @@ class RichTextView : ExpressionTextView {
         val spannableString = SpannableString(content)
         for (richModel in richModels) {
             if (!richModel.isValid()) continue
-            val startSelection = content.indexOf(richModel.getContentRule())
-            val endSelection = startSelection + richModel.getContentRule().length
+            val startSelection = content.indexOf(richModel.content)
+            val endSelection = startSelection + richModel.content.length
             if (startSelection == -1) continue
             makeClickSpan(spannableString, startSelection, endSelection, richModel)
         }
